@@ -12,11 +12,13 @@ Os seguintes requisitos serão exigidos para o desenvolvimento:
 
 ## Construindo
 
-Instalar os 
+Instalar as dependencias
 
 ```
 $ npm install
 ```
+
+Construir o projeto
 
 ```
 $ cordova run browser
