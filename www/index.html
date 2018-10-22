@@ -8,10 +8,11 @@
     <!-- Color theme for statusbar -->
     <meta name="theme-color" content="#2196f3">
     <!-- Your app title -->
-    <title>My App</title>
+    <title>MenUFSC</title>
     <!-- Path to Framework7 Library CSS -->
-    <link rel="stylesheet" href="css/framework7/framework7.css">
+    <link rel="stylesheet" href="css/framework7.css">
     <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/index.css">
   </head>
   <body>
@@ -19,6 +20,22 @@
     <div id="app">
       <!-- Statusbar overlay -->
       <div class="statusbar"></div>
+
+      <!-- Left panel with cover effect-->
+      <div class="panel panel-left panel-cover">
+        <div class="view">
+          <div class="page">
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="title">Left Panel</div>
+              </div>
+            </div>
+            <div class="page-content">
+              <div class="block">Left panel content goes here</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Your main view, should have "view-main" class -->
       <div class="view view-main">
@@ -28,30 +45,75 @@
           <!-- Top Navbar -->
           <div class="navbar">
             <div class="navbar-inner">
-              <div class="title">Awesome App</div>
-            </div>
-          </div>
-
-          <!-- Toolbar -->
-          <div class="toolbar">
-            <div class="toolbar-inner">
-              <!-- Toolbar links -->
-              <a href="#" class="link">Link 1</a>
-              <a href="#" class="link">Link 2</a>
+                <div class="left">
+                  <a href="#" class="link icon-only panel-open" data-panel="left">
+                    <i class="icon f7-icons ios-only">menu</i>
+                    <i class="icon material-icons md-only">menu</i>
+                  </a>
+                </div>
+              <div class="title">MenUFSC</div>
             </div>
           </div>
 
           <!-- Scrollable page content -->
           <div class="page-content">
-            <p>Page content goes here</p>
-            <!-- Link to another page -->
-            <a href="/about/">About app</a>
+
+            <!-- A list that contains the days with menu information available -->
+            <!-- Must be filled by a script -->
+            <div class="block accordion-list custom-accordion" id="days-list">
+              <div class="accordion-item card">
+                <div class="accordion-item-toggle card-header">Wednesday</div>
+                <div class="accordion-item-content">
+                    <div class="toolbar tabbar">
+                        <div class="toolbar-inner">
+                          <a href="#lunch" class="tab-link tab-link-active">Lunch</a>
+                          <a href="#dinner" class="tab-link">Dinner</a>
+                        </div>
+                      </div>
+                      <div class="tabs-animated-wrap">
+                        <div class="tabs">
+                          <div id="lunch" class="page-content tab tab-active">
+                            <div class="block">
+                              <ul>
+                                <li>White Rice</li>
+                                <li>Integral Rice</li>
+                                <li>Red Beans</li>
+                                <li>Chicken Steak</li>
+                                <li>Tomatoes</li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div id="dinner" class="page-content tab">
+                            <div class="block">
+                              <p>Tab 2 content</p>
+                              ...
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+              </div>
+              <div class="accordion-item card">
+                <div class="accordion-item-toggle card-header">Thursday</div>
+                <div class="accordion-item-content">
+                  <div class="card-content card-content-padding">
+                    <ul>
+                      <li>White Rice</li>
+                      <li>Integral Rice</li>
+                      <li>Red Beans</li>
+                      <li>Chicken Steak</li>
+                      <li>Tomatoes</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="js/framework7/framework7.js"></script>
+    <script type="text/javascript" src="js/framework7.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/index.js"></script>
   </body>
