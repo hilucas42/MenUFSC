@@ -14,6 +14,10 @@
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/index.css">
+    <!-- swipper lib-->
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <script src="js/swiper.min.js"></script>
+    <!-- end of swipper lib-->
   </head>
   <body>
     <!-- App root element -->
@@ -58,89 +62,23 @@
           <!-- Scrollable page content -->
           <div class="page-content">
 
-            <!-- A list that contains the days with menu information available -->
-            <!-- Must be filled by a script -->
-            <div class="block accordion-list custom-accordion" id="days-list">
+               
 
-              <!-- Script generated div #1 -->
-              <div class="accordion-item card">
-                <div class="accordion-item-toggle card-header">Wednesday</div>
-                <div class="accordion-item-content">
-                  <div class="toolbar tabbar">
-                    <div class="toolbar-inner">
-                      <a href="#lunch_date1" class="tab-link tab-link-active">Lunch</a>
-                      <a href="#dinner_date1" class="tab-link">Dinner</a>
-                    </div>
-                  </div>
-                  <div class="tabs">
-                    <div id="lunch_date1" class="tab tab-active">
-                      <div class="list">
-                        <ul>
-                          <li><div class="item-content">White Rice</div></li>
-                          <li><div class="item-content">Integral Rice</div></li>
-                          <li><div class="item-content">Red Beans</div></li>
-                          <li><div class="item-content">Chicken Steak</div></li>
-                          <li><div class="item-content">Tomatoes</div></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div id="dinner_date1" class="tab">
-                      <div class="list">
-                        <ul>
-                          <li><div class="item-content">Pasta</div></li>
-                          <li><div class="item-content">Integral Rice</div></li>
-                          <li><div class="item-content">Red Beans</div></li>
-                          <li><div class="item-content">Beaf</div></li>
-                          <li><div class="item-content">Carrot</div></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div class="swiper-container">
+              <!-- Slides wrapper -->
+              <div class="swiper-wrapper" id="card-slider">
+                  <!-- Slides -->
+                  
               </div>
-
-              <!-- Script generated div #2 -->
-              <div class="accordion-item card">
-                <div class="accordion-item-toggle card-header">Thursday</div>
-                <div class="accordion-item-content">
-                  <div class="toolbar tabbar">
-                    <div class="toolbar-inner">
-                      <a href="#lunch_date2" class="tab-link tab-link-active">Lunch</a>
-                      <a href="#dinner_date2" class="tab-link">Dinner</a>
-                    </div>
-                  </div>
-                  <div class="tabs">
-                    <div id="lunch_date2" class="tab tab-active">
-                      <div class="list">
-                        <ul>
-                          <li><div class="item-content">White Rice</div></li>
-                          <li><div class="item-content">Integral Rice</div></li>
-                          <li><div class="item-content">Black Beans</div></li>
-                          <li><div class="item-content">Cow Steak</div></li>
-                          <li><div class="item-content">Lettuce</div></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div id="dinner_date2" class="tab">
-                      <div class="list">
-                        <ul>
-                          <li><div class="item-content">White Rice</div></li>
-                          <li><div class="item-content">Integral Rice</div></li>
-                          <li><div class="item-content">Red Beans</div></li>
-                          <li><div class="item-content">Beaf</div></li>
-                          <li><div class="item-content">Carrot</div></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          </div>
 
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="js/framework7/framework7.js"></script>
     <!-- Path to your app js-->
