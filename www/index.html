@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Color theme for statusbar -->
     <meta name="theme-color" content="#2196f3">
-    <!-- Your app title -->
     <title>MenUFSC</title>
-    <!-- Path to Framework7 Library CSS -->
+    <!-- Library CSS -->
     <link rel="stylesheet" href="css/framework7/framework7.css">
-    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/swiper/swiper.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/index.css">
-    <!-- swipper lib-->
-    <link rel="stylesheet" href="css/swiper.min.css">
-    <script src="js/swiper.min.js"></script>
-    <!-- end of swipper lib-->
   </head>
   <body>
     <!-- App root element -->
@@ -49,12 +43,12 @@
           <!-- Top Navbar -->
           <div class="navbar">
             <div class="navbar-inner">
-                <div class="left">
-                  <a href="#" class="link icon-only panel-open" data-panel="left">
-                    <i class="icon f7-icons ios-only">menu</i>
-                    <i class="icon material-icons md-only">menu</i>
-                  </a>
-                </div>
+              <div class="left">
+                <a href="#" class="link icon-only panel-open" data-panel="left">
+                  <i class="icon f7-icons ios-only">menu</i>
+                  <i class="icon material-icons md-only">menu</i>
+                </a>
+              </div>
               <div class="title">MenUFSC</div>
             </div>
           </div>
@@ -62,26 +56,83 @@
           <!-- Scrollable page content -->
           <div class="page-content">
 
-               
-
+            <!-- Swiper -->
             <div class="swiper-container">
               <!-- Slides wrapper -->
               <div class="swiper-wrapper" id="card-slider">
-                  <!-- Slides -->
-                  
+                <!-- Slides -->
               </div>
-          </div>
+            </div>
 
+            <div>
+              <!-- FEEDBACK-->
+              <div class="block-title">GIVE US YOUR FEEDBACK</div>
+              <!-- [TODO] This form must call client module to submit -->
+              <form class="block" id="feedback">
+                <!-- Text field -->
+                <div class="card card-outline">
+                  <textarea></textarea>
+                  <span class="input-clear-button"></span>
+                </div>
+                <!-- Controls -->
+                <div class="row form-action">
+                  <div class="col">
+                    <label class="toggle color-blue">
+                      <input type="checkbox">
+                      <span class="toggle-icon"></span>
+                    </label>
+                    <div class="label">Anonymous</div>
+                  </div>
+                  <button class="col button button-fill">Publish</button>
+                </div>
+              </form>
+              <!-- RATINGS -->
+              <div class="block-title">RATINGS</div>
+              <div class="list">
+                <!-- [TODO] This list must be filled by the app module -->
+                <ul id="comments">
+                  <li class="item-content item-output">
+                    <div class="item-media">
+                      <!-- Needs to request image for local storage. 
+                      Local storage will bring it from server, if needed -->
+                      <img src="./img/icon.png" class="icon avatar">
+                    </div>
+                    <div class="item-inner">
+                      <div class="item-title item-label">Lucas</div>
+                      <div>
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                          Nam dignissim nisl eu tortor egestas, id porttitor ipsum fermentum.
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-content item-output">
+                      <div class="item-media">
+                        <img src="./img/icon.png" class="icon avatar">
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title item-label">Luan</div>
+                        <div>
+                          <p>
+                            Sed in ligula eu diam aliquet rutrum.
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </div>
 
-
-    <!-- Path to Framework7 Library JS-->
+    <!-- Library JS -->
     <script type="text/javascript" src="js/framework7/framework7.js"></script>
-    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/swiper/swiper.js"></script>
+    <!-- Custom JS -->
     <script type="text/javascript" src="js/index.js"></script>
   </body>
 </html>
