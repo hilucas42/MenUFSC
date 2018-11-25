@@ -7,6 +7,7 @@ var app = new Framework7({
 
     methods: {
         initialize: function() {
+
             this.data.swiper = app.swiper.create('.swiper-container', {
                 speed: 400,
                 spaceBetween: 100
@@ -16,8 +17,27 @@ var app = new Framework7({
             for (let i in menuData) {
                 this.data.swiper.appendSlide([this.methods.createSlide(i, menuData[i])]);
             };
+
+            document.getElementById('publish-review').addEventListener('click',() => {
+                rating = document.querySelector('input[name="rating"]:checked').value;
+                review = document.getElementById('review').value;
+                if (client.submitReview({rating, review}) == 'ERR_USER_NOT_LOGGED_IN') {
+                    alert('Precisa estar logado para publicar reviews');
+                }
+            });
+
+            if(client.isUserLoggedIn()) {
+                document.getElementById('login-logout-button').innerHTML =
+                '<a href="#" onclick="client.logout()" class="panel-close">Logout</a>';
+            }
+            else {
+                document.getElementById('login-logout-button').innerHTML = 
+                '<a href="#" data-login-screen=".login-screen"'+
+                'class="login-screen-open panel-close">Login / Registrar</a>';
+            }
         },
-        updateSwiper: function() {
+        updateSwiper: function(menu) {
+            // [ TODO ]
             // Refresh the swiper content, taking care to stay showing
             // the slide user was seeing
         },
@@ -43,83 +63,98 @@ var app = new Framework7({
             str += '</div></div></div>';
         
             return str;
+        },
+
+        // This function will be called periodically to update the list of reviews
+        // and the average rating of the day
+        updateReviews: function(reviewList, averageRating) {
+            var str = "";
+
+            reviewList.forEach((review) => {
+                str += '<li class="item-content item-output">';
+                str += '<div class="item-media">';
+                str += '<img src="./img/icon.png" class="icon avatar">';
+                str += '</div>';
+                str += '<div class="item-inner">';
+                str += '<div class="item-title item-label">'+review.userPublicName+'</div>';
+                str += '<div>';
+                str += '<p>'+review.review+'</p>';
+                str += '</div></div></li>'
+            });
+
+            document.getElementById('comments').innerHTML = str;
         }
     }
 });
 
 var client = (() => {
 
-    var dummyData = {
-        "13082018": [
-            "Arroz branco \nArroz integral \nFeijão vermelho \nLentilha ",
-            "Carne moída c/ \nmilho ",
-            "Frango assado ",
-            "Purê de batatas ",
-            "Farofa ",
-            "Saladas ",
-            "Grão ",
-            "Sobremesas "
-        ],
-        "14082018": [
-            "Arroz branco \nArroz integral \nFeijão preto \nLentilha ",
-            "Bisteca suína ao \nmolho barbecue ",
-            "Iscas à portuguesa ",
-            "Espaguete ao alho e \nóleo ",
-            "Farofa ",
-            "Saladas ",
-            "Grão "
-        ],
-        "15082018": [
-            "Arroz branco \nArroz integral \nFeijão carioca \nLentilha ",
-            "Strogonoff de \nfrango ",
-            "Cupim assado ",
-            "Batata palha ",
-            "Farofa ",
-            "Saladas ",
-            "Grão ",
-            "Sobremesas "
-        ],
-        "16082018": [
-            "Arroz branco \nArroz integral \nFeijão preto \nLentilha ",
-            "Cubos de carne ao \nsugo ",
-            "Frango grelhado ",
-            "Cenoura sauté ",
-            "Farofa ",
-            "Saladas ",
-            "Grão ",
-            "Sobremesas "
-        ],
-        "17082018": [
-            "Arroz branco \nArroz integral \nFeijão preto \nLentilha ",
-            "Lagarto recheado ",
-            "Peixe crocante ",
-            "Batata doce \nassada ",
-            "Farofa ",
-            "Saladas ",
-            "Grão ",
-            "Sobremesas "
-        ],
-        "18082018": [
-            "Arroz branco \nArroz integral \nFeijão carioca \nLentilha ",
-            "Escondidinho de \ncarne ",
-            "Sobrecoxa ao \nmolho ",
-            "Macarrão \nprimavera ",
-            "Farofa ",
-            "Saladas ",
-            "Grão ",
-            "Sobremesas "
-        ],
-        "19082018": [
-            "Arroz branco \nArroz integral \nFeijão vermelho \nLentilha ",
-            "Fraldinha/linguiça ",
-            "Fricassê ",
-            "Legumes \nrefogados ",
-            "Farofa ",
-            "Saladas ",
-            "Grão ",
-            "Sobremesas "
-        ]
-    };
+    var userLoggedIn = false;
+
+    var lastReview = "";
+
+    function processReceivedMenu(receivedMenu) {
+        // Merge with existent data
+        var cachedMenu = JSON.parse(localStorage.getItem('cachedMenu'));
+        if(cachedMenu) {
+            // if ( equals(cachedMenu, receivedMenu) ), then
+            localStorage.setItem('cachedMenu', JSON.stringify(
+                Object.assign(cachedMenu, JSON.parse(receivedMenu))
+            ));
+            app.methods.updateSwiper(cachedMenu);
+        }
+        else {
+            localStorage.setItem('cachedMenu', receivedMenu);
+            app.methods.updateSwiper(cachedMenu);
+        }
+    }
+
+    function getReviewList() {
+        var xhttp = new XMLHttpRequest();
+        /*
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                app.methods.updateReviews(JSON.parse(this.responseText), 4);
+            }
+        };
+        xhttp.open("GET", "http://localhost:3000/review", true);
+        xhttp.send();
+        */
+        app.methods.updateReviews([
+            {
+                ratingId: 1234,
+                userPublicName: 'Lucas',
+                review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim nisl eu tortor egestas, id porttitor ipsum fermentum.',
+                rating: 2
+            },
+            {
+                ratingId: 1235,
+                userPublicName: 'Luan',
+                review: 'Sed in ligula eu diam aliquet rutrum.',
+                rating: 5
+            }
+        ], 4);
+    }
+
+    function validateSession() {
+        var userCredentials = localStorage.getItem('userCredentials');
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText == "VALID_SESSION") {
+                    userLoggedIn = true;
+                }
+                else if (userCredentials) {
+                    client.login(userCredentials.username, userCredentials.password);
+                }
+                else {
+                    userLoggedIn = false;
+                }
+            }
+        };
+        xhttp.open("GET", "http://localhost:3000/validatesession", true);
+        xhttp.send();
+    }
 
     return {
         initialize: function() {
@@ -129,33 +164,72 @@ var client = (() => {
 
             // Check if the client is logged in and try to silent login,
             // if there was a previous login not succeeded by a logout.
+            validateSession();
+
+            setInterval(() => {
+                getReviewList();
+            }, 10000);
         },
-        login: function() {
-            // Calls Google API and permorms validation with the server
+        login: function(username, password) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    userLoggedIn = true;
+                }
+            };
+            xhttp.open("POST", "http://localhost:3000/login", true);
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send(JSON.stringify({username, password}));
         },
         logout: function() {
-            // Wipe user data from the app
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    userLoggedIn = false;
+                }
+            };
+            xhttp.open("GET", "http://localhost:3000/logout", true);
+            xhttp.send();
+        },
+        isUserLoggedIn() {
+            return userLoggedIn;
         },
         getMenu: function() {
             // Returns the cached menu
-            return dummyData; // Replace this by an access to the cached var in local storage
+            return JSON.parse(localStorage.getItem('cachedMenu'));
         },
-        refreshMenu: function() {
+        refreshMenu: function () {
             // Refresh the cached menu and, if modified, notify the gui
             // about the changes
-            app.methods.updateSwiper();
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    processReceivedMenu(this.responseText);
+                }
+            };
+            xhttp.open("GET", "http://localhost:3000/cardapio", true);
+            xhttp.send();
         },
-        submitFeedback(feedback) {
-            // Uses POST to send the feedback to the server.
-            // feedback: {
-            //    note,
-            //    comment
-            // }
+        submitReview(review) {
+            if (!userLoggedIn) {
+                lastReview = review;
+                return 'ERR_USER_NOT_LOGGED_IN';
+            }
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log("Message sent");
+                }
+            };
+            xhttp.open("POST", "http://localhost:3000/review", true);
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send(JSON.stringify(review));
         }
     }
 })();
 
 app.methods.initialize();
-document.addEventListener('deviceready', () => {
+//document.addEventListener('deviceready', () => {
     client.initialize();
-}, false);
+//}, false);

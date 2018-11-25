@@ -25,11 +25,18 @@
           <div class="page">
             <div class="navbar">
               <div class="navbar-inner">
-                <div class="title">Left Panel</div>
+                <div class="title">MenUFSC</div>
               </div>
             </div>
             <div class="page-content">
-              <div class="block">Left panel content goes here</div>
+              <div class="block list simple-list">
+                <ul>
+                  <li id="login-logout-button">Fazer login</li>
+                  <li>Configurações</li>
+                  <li>Ajuda</li>
+                  <li>Sobre</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -64,14 +71,27 @@
               </div>
             </div>
 
+            <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5" />
+              <label class="full" for="star5" title="Awesome"></label>
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label class="full" for="star4" title="Pretty good"></label>
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label class="full" for="star3" title="Meh"></label>
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label class="full" for="star2" title="Kinda bad"></label>
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label class="full" for="star1" title="Sucks big time"></label>
+            </fieldset>
+
             <div>
               <!-- FEEDBACK-->
-              <div class="block-title">GIVE US YOUR FEEDBACK</div>
+              <div class="block-title">DEIXE SUA OPINIÃO</div>
               <!-- [TODO] This form must call client module to submit -->
               <form class="block" id="feedback">
                 <!-- Text field -->
                 <div class="card card-outline">
-                  <textarea></textarea>
+                  <textarea id="review"></textarea>
                   <span class="input-clear-button"></span>
                 </div>
                 <!-- Controls -->
@@ -81,21 +101,22 @@
                       <input type="checkbox">
                       <span class="toggle-icon"></span>
                     </label>
-                    <div class="label">Anonymous</div>
+                    <div class="label">Anônimo</div>
                   </div>
-                  <button class="col button button-fill">Publish</button>
+                  <button class="col button" type="button" id="publish-review">PUBLICAR</button>
                 </div>
               </form>
+
               <!-- RATINGS -->
-              <div class="block-title">RATINGS</div>
+              <div class="block-title">AVALIAÇÕES</div>
               <div class="list">
                 <!-- [TODO] This list must be filled by the app module -->
                 <ul id="comments">
-                  <li class="item-content item-output">
-                    <div class="item-media">
+                  <!--li class="item-content item-output">
+                    <div class="item-media"-->
                       <!-- Needs to request image for local storage. 
                       Local storage will bring it from server, if needed -->
-                      <img src="./img/icon.png" class="icon avatar">
+                      <!--img src="./img/icon.png" class="icon avatar">
                     </div>
                     <div class="item-inner">
                       <div class="item-title item-label">Lucas</div>
@@ -119,19 +140,122 @@
                           </p>
                         </div>
                       </div>
-                    </li>
+                    </li-->
                 </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div class="login-screen">
+        <div class="view">
+          <div class="page">
+            <div class="page-content login-screen-content">
+              <div class="login-screen-title">MenUFSC</div>
+              <form>
+                <div class="list">
+                  <ul>
+                    <li class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Usuário</div>
+                        <div class="item-input-wrap">
+                          <input type="text" name="username" placeholder="Seu nome de usuário">
+                        </div>
+                      </div>
+                    </li>
+                    <li class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Senha</div>
+                        <div class="item-input-wrap">
+                          <input type="password" name="password" placeholder="Sua senha">
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="list">
+                  <ul>
+                    <script>
+                      function login() {
+                        client.login({
+                          username: document.querySelector(
+                          'input[name="username"]').value,
+                          password: document.querySelector(
+                            'input[name="password"]').value
+                        });
+                      }
+                    </script>
+                    <li><a class="item-link list-button login-screen-close"
+                      href="#" onclick="login()">Entrar</a></li>
+                  </ul>
+                </div>
+              </form>
+              <div class="block-title">
+                Caso ainda não tenha usuário, cadastre-se!
+              </div>
+              <form>
+                <div class="list">
+                  <ul>
+                    <li class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Usuário</div>
+                        <div class="item-input-wrap">
+                          <input type="text" name="new-username" placeholder="Seu nome de usuário">
+                        </div>
+                      </div>
+                    </li>
+                    <li class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Senha</div>
+                        <div class="item-input-wrap">
+                          <input type="password" name="new-password" placeholder="Uma nova senha">
+                        </div>
+                      </div>
+                    </li>
+                    <li class="item-content item-input">
+                      <div class="item-inner">
+                        <div class="item-title item-label">Senha</div>
+                        <div class="item-input-wrap">
+                          <input type="password" name="confirm-password" placeholder="Confirme a senha">
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="list">
+                  <ul>
+                    <script>
+                      function register() {/*
+                        client.register({
+                          username: document.querySelector(
+                            'input[name="new-username"]').value,
+                          password: document.querySelector(
+                            'input[name="new-password"]').value,
+                          confirm: document.querySelector(
+                            'input[name="new-password"]').value
+                        });*/
+                      }
+                    </script>
+                    <li><a class="item-link list-button login-screen-close" href="#">Cadastrar</a></li>
+                  </ul>
+                  <div class="block-footer">
+                    <p>Cadastrando-se, você concorda com os <a>termos de uso</a>.</p>
+                    <p><a class="link login-screen-close" href="#">Voltar ao início</a></p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </div>
 
     <!-- Library JS -->
     <script type="text/javascript" src="js/framework7/framework7.js"></script>
     <script type="text/javascript" src="js/swiper/swiper.js"></script>
+    <!--script type="text/javascript" src="cordova.js"></script-->
     <!-- Custom JS -->
     <script type="text/javascript" src="js/index.js"></script>
   </body>
