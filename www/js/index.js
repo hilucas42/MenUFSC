@@ -45,11 +45,11 @@ var app = new Framework7({
         // Functions intended to use "privately", only by the "app" module
         createSlide: function(data, cardapio) {
             let str = '';
-            let date = data.slice(0, 2) + '/' + data.slice(2, 4) + '/' + data.slice(4, 9);
+            let date = data.slice(0, 2) + '/' + data.slice(2, 4) + '/' + data.slice(4, 8);
         
             let dias_semana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'QUINTA-FEIRA', 'Sexta-feira', 'Sábado'];
         
-            let dia_atual = dias_semana[new Date(data.slice(4, 9), data.slice(2, 4), data.slice(0, 2), 0, 0, 0, 0).getDay()];
+            let dia_atual = dias_semana[new Date(data.slice(4, 8), data.slice(2, 4) - 1, data.slice(0, 2), 0, 0, 0, 0).getDay()];
         
         
             str += '<div class="swiper-slide">';
